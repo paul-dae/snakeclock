@@ -6,16 +6,6 @@ class Snake{
         this.min = 0;
         this.scaling = scaling;
         this.path = [];
-        //this.pathDirs = [];
-        // if(this.tailLength > 0){
-        //     for(let i = 0; i < tailLength; i++){
-        //         let validCoords = this.getValidCoords(tmp[i]);
-        //         //console.log(this.body);
-        //         //console.log("validCoords" + validCoords);
-        //         let ranCoords = validCoords[floor(random(validCoords.length))];
-        //         tmp = tmp.concat([[tmp[i][0] + ranCoords[0], tmp[i][1] + ranCoords[1]]]);
-        //     }
-        // }
     }
 
     death(){
@@ -34,25 +24,6 @@ class Snake{
             this.path.push(ghost.coords)
         }
         this.path.reverse();
-        // let validCoords = this.getValidCoords(this.coords);
-        // let ranDir = validCoords[floor(random(validCoords.length))]
-        // this.pathDirs.push(ranDir);
-        // this.path.push([this.coords[0] + ranDir[0], this.coords[1] + ranDir[1]])
-        // console.log(this.coords);
-        // console.log("path: " + this.path + "\n pathdirs: " + this.pathDirs);
-        // console.log(this.path[0]);
-        // for(let i = 0; i < 9; i++){
-        //     validCoords = this.getValidCoords(this.path[i]);
-        //     ranDir = validCoords[floor(random(validCoords.length))]
-        //     console.log("ranDir: " + ranDir);
-        //     this.pathDirs.push(ranDir);
-        //     this.path.push([this.path[i][0] + ranDir[0], this.path[i][1] + ranDir[1]])
-        //     console.log(this.path[i]);
-        //     console.log("path: " + this.path + "\n pathdirs: " + this.pathDirs);
-        // }
-        // this.pathDirs.reverse();
-        // this.path.reverse();
-        // console.log(this.pathDirs);
     }
 
     setMinutes(mins){
@@ -67,8 +38,6 @@ class Snake{
     }
 
     addTail(lastTail){
-        // let validCoords = this.getValidCoords(this.body[this.body.length - 1]);
-        // let ranCoords = validCoords[floor(random(validCoords.length))];
         this.body = this.body.concat([lastTail]);
         this.tailLength++;
     }
@@ -78,6 +47,7 @@ class Snake{
         this.move(validDirections[floor(random(validDirections.length))]);
     }
 
+    //TODO
     // moveRandom(lazyness){
     //     let validDirections = this.getValidCoords();
     // }
@@ -110,17 +80,9 @@ class Snake{
     }
 
     updateBody(coords){
-        // console.log("this.body.slice(0, this.body.length - 1)");
-        // console.log(this.body.slice(0, this.body.length - 1));
-        // console.log("this.body");
-        // console.log(this.body);
         let lastTail = this.body[this.body.length - 1];
         this.body = [coords].concat(this.body.slice(0, this.body.length - 1));
         if(this.body.length <= floor(this.min / minscale)) this.addTail(lastTail);
-        //this.body = [coords].concat(this.body.splice(0, 1));
-        // console.log("this.body");
-        // console.log(this.body);
-        // this.sec++;
     }
 
     getAdjacentCoords(coords){
@@ -139,25 +101,16 @@ class Snake{
         // console.log(coords);
         let adjacentCoords = this.getAdjacentCoords(coords);
         let valid;
-        //console.log("getValidCoords:\nadjacentCoords: " + adjacentCoords);
         let validAdjacentCoords = [];
-        //console.log(this.body);
         for(let i in adjacentCoords){
             valid = true;
-            // console.log("adjacentCoords: " + adjacentCoords);
             for(let j in this.body){
-                // console.log("valid: " + valid);
-                // console.log("adjacentCoords i: " + coords + " " + adjacentCoords[i][0] + " , this.body[j]: " + this.body[j]);
-                // console.log(!(this.body[j][0] == coords[0] + adjacentCoords[i][0][0] && this.body[j][1] == coords[1] + adjacentCoords[i][0][1]));
-                // console.log(this.body[j].includes(coords[0] + adjacentCoords[i][0][0]) && this.body[j].includes(coords[1] + adjacentCoords[i][0][1]));
                 if(this.body[j][0] == coords[0] + adjacentCoords[i][0][0] && this.body[j][1] == coords[1] + adjacentCoords[i][0][1]){
                     valid = false;
                 }
             }
-            // console.log("valid: " + valid);
             if (valid) validAdjacentCoords = validAdjacentCoords.concat([adjacentCoords[i][0]]);
         }
-        //console.log(validAdjacentCoords);
         return validAdjacentCoords;
     }
 
